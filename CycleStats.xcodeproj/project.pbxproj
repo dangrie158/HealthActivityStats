@@ -8,20 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		6543FE5B2286177000543962 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6543FE5A2286177000543962 /* AppDelegate.swift */; };
-		6543FE5D2286177000543962 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6543FE5C2286177000543962 /* ViewController.swift */; };
+		6543FE5D2286177000543962 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6543FE5C2286177000543962 /* StatsViewController.swift */; };
 		6543FE602286177000543962 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6543FE5E2286177000543962 /* Main.storyboard */; };
 		6543FE622286177100543962 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6543FE612286177100543962 /* Assets.xcassets */; };
 		6543FE652286177100543962 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6543FE632286177100543962 /* LaunchScreen.storyboard */; };
+		6543FE6E228617B900543962 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6543FE6D228617B900543962 /* HealthKit.framework */; };
+		6543FE972286F04500543962 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6543FE962286F04500543962 /* PageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6543FE572286177000543962 /* CycleStats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CycleStats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6543FE5A2286177000543962 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6543FE5C2286177000543962 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6543FE5C2286177000543962 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		6543FE5F2286177000543962 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6543FE612286177100543962 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6543FE642286177100543962 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6543FE662286177100543962 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6543FE6D228617B900543962 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		6543FE6F228617B900543962 /* CycleStats.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CycleStats.entitlements; sourceTree = "<group>"; };
+		6543FE962286F04500543962 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6543FE6E228617B900543962 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +46,7 @@
 			children = (
 				6543FE592286177000543962 /* CycleStats */,
 				6543FE582286177000543962 /* Products */,
+				6543FE6C228617B900543962 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +61,24 @@
 		6543FE592286177000543962 /* CycleStats */ = {
 			isa = PBXGroup;
 			children = (
+				6543FE6F228617B900543962 /* CycleStats.entitlements */,
 				6543FE5A2286177000543962 /* AppDelegate.swift */,
-				6543FE5C2286177000543962 /* ViewController.swift */,
+				6543FE5C2286177000543962 /* StatsViewController.swift */,
 				6543FE5E2286177000543962 /* Main.storyboard */,
 				6543FE612286177100543962 /* Assets.xcassets */,
 				6543FE632286177100543962 /* LaunchScreen.storyboard */,
 				6543FE662286177100543962 /* Info.plist */,
+				6543FE962286F04500543962 /* PageViewController.swift */,
 			);
 			path = CycleStats;
+			sourceTree = "<group>";
+		};
+		6543FE6C228617B900543962 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6543FE6D228617B900543962 /* HealthKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +113,11 @@
 				TargetAttributes = {
 					6543FE562286177000543962 = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -135,7 +157,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6543FE5D2286177000543962 /* ViewController.swift in Sources */,
+				6543FE5D2286177000543962 /* StatsViewController.swift in Sources */,
+				6543FE972286F04500543962 /* PageViewController.swift in Sources */,
 				6543FE5B2286177000543962 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -282,6 +305,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CycleStats/CycleStats.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FKCC8V8H4X;
 				INFOPLIST_FILE = CycleStats/Info.plist;
@@ -292,7 +316,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.danielgriesshaber.CycleStats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -300,6 +324,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CycleStats/CycleStats.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FKCC8V8H4X;
 				INFOPLIST_FILE = CycleStats/Info.plist;
@@ -310,7 +335,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.danielgriesshaber.CycleStats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
