@@ -22,6 +22,7 @@ class StatsViewController: UIViewController {
     @IBOutlet weak var progressYear: UIProgressView!
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var labelProgressYear: UILabel!
+    @IBOutlet weak var labelDailyAverage: UILabel!
     
     var distanceFormat = "%.2f %@"
     let progressFormat = "%d%%"
@@ -44,41 +45,29 @@ class StatsViewController: UIViewController {
     
     var thisMonthValue: Double = 0.0 {
         didSet {
-            labelThisMonthDistance?.text = String(format:self.distanceFormat, thisMonthValue, unit)
-            var progress = Float(thisMonthValue / lastMonthValue)
-            if progress == Float.infinity { progress = 0 }
-            progressMonth?.progress = progress
-            labelProgressMonth?.text = String(format: progressFormat, Int(progress * 100))
+            labelThisMonthDistance?.text = String(format:self.distanceFormat, thisMonthValue, "")
+            self.updateMonthlyStat()
         }
     }
     
     var lastMonthValue: Double = 0.0 {
         didSet {
             labelLastMonthDistance?.text = String(format:self.distanceFormat, lastMonthValue, unit)
-            var progress = Float(thisMonthValue / lastMonthValue)
-            if progress == Float.infinity { progress = 0 }
-            progressMonth?.progress = progress
-            labelProgressMonth?.text = String(format: progressFormat, Int(progress * 100))
+            self.updateMonthlyStat()
         }
     }
     
     var thisYearValue: Double = 0.0 {
         didSet {
             labelThisYearDistance?.text = String(format:self.distanceFormat, thisYearValue, unit)
-            var progress = Float(thisYearValue / lastYearValue)
-            if progress == Float.infinity { progress = 0 }
-            progressYear?.progress = progress
-            labelProgressYear?.text = String(format: progressFormat, Int(progress * 100))
+            self.updateYearlyStat()
         }
     }
     
     var lastYearValue: Double = 0.0 {
         didSet {
             labelLastYearDistance?.text = String(format:self.distanceFormat, lastYearValue, unit)
-            var progress = Float(thisYearValue / lastYearValue)
-            if progress == Float.infinity { progress = 0 }
-            progressYear?.progress = progress
-            labelProgressYear?.text = String(format: progressFormat, Int(progress * 100))
+            updateYearlyStat()
         }
     }
     
@@ -95,6 +84,25 @@ class StatsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.updateValues()
+    }
+    
+    func updateMonthlyStat() {
+        var progress = Float(thisMonthValue / lastMonthValue)
+        if progress == Float.infinity { progress = 0 }
+        progressMonth?.progress = progress
+        labelProgressMonth?.text = String(format: progressFormat, Int(progress * 100))
+        
+        let calendar = Calendar.current
+        let dom = calendar.component(.day, from: Date())
+        let dailyAverage = thisMonthValue / Double(dom)
+        labelDailyAverage.text = String(format: self.distanceFormat, dailyAverage, self.unit)
+    }
+    
+    func updateYearlyStat() {
+        var progress = Float(thisYearValue / lastYearValue)
+        if progress == Float.infinity { progress = 0 }
+        progressYear?.progress = progress
+        labelProgressYear?.text = String(format: progressFormat, Int(progress * 100))
     }
 
     func updateValues() {
