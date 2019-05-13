@@ -88,7 +88,7 @@ class StatsViewController: UIViewController {
     
     func updateMonthlyStat() {
         var progress = Float(thisMonthValue / lastMonthValue)
-        if progress == Float.infinity { progress = 0 }
+        if progress.isInfinite || progress.isNaN { progress = 0 }
         progressMonth?.progress = progress
         labelProgressMonth?.text = String(format: progressFormat, Int(progress * 100))
         
@@ -100,7 +100,7 @@ class StatsViewController: UIViewController {
     
     func updateYearlyStat() {
         var progress = Float(thisYearValue / lastYearValue)
-        if progress == Float.infinity { progress = 0 }
+        if progress.isInfinite || progress.isNaN { progress = 0 }
         progressYear?.progress = progress
         labelProgressYear?.text = String(format: progressFormat, Int(progress * 100))
     }
@@ -139,8 +139,10 @@ class StatsViewController: UIViewController {
             quantityType: HKObjectType.quantityType(forIdentifier: quantity!)!,
             quantitySamplePredicate: predicate,
             options: .cumulativeSum){ query, result, error in
-                DispatchQueue.main.async {
-                    completion((result?.sumQuantity()?.doubleValue(for: self.unitType!))! / Double(self.unitFactor))
+                if result != nil {
+                    DispatchQueue.main.async {
+                        completion((result?.sumQuantity()?.doubleValue(for: self.unitType!))! / Double(self.unitFactor))
+                    }
                 }
         }
         
